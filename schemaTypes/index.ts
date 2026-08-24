@@ -1,14 +1,14 @@
-import { page } from './content/page'
-import { hero } from './content/hero'
+import { page } from './page'
+import { article } from './article'
+import { section } from './content/section'
 import { textBlock } from './content/textBlock'
 import { imgBlock } from './content/imgBlock'
-import { article } from './article'
-import { table } from './table'
+import { table } from './content/table'
 
 export const schemaTypes = [
   page,
   article,
-  hero,
+  section,
   textBlock,
   imgBlock,
   table,

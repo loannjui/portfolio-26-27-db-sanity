@@ -1,9 +1,11 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
+import { DocumentIcon } from '@sanity/icons/Document'
 
 export const page = defineType({
   name: 'page',
   title: 'Page',
   type: 'document',
+  icon: DocumentIcon,
 
   fields: [
     defineField({
@@ -25,11 +27,14 @@ export const page = defineType({
       name: 'sections',
       title: 'Sections',
       type: 'array',
-      of: [
-        { type: 'hero' },
-        { type: 'textBlock' },
-        { type: 'imageBlock' },
-      ],
+      of: [defineArrayMember({ type: 'section' })],
     }),
   ],
+
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'slug.current',
+    },
+  },
 })
