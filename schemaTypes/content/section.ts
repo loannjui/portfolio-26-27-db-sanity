@@ -15,12 +15,23 @@ export const section = defineType({
     }),
 
     defineField({
+      name: 'subtitle',
+      title: 'Sous-titre',
+      type: 'string',
+      description: 'Facultatif',
+    }),
+
+    defineField({
       name: 'content',
       title: 'Contenu',
       type: 'array',
       of: [
         defineArrayMember({ type: 'textBlock' }),
-        defineArrayMember({ type: 'imageBlock' }),
+        defineArrayMember({
+          type: 'reference',
+          title: 'Image',
+          to: [{ type: 'media' }],
+        }),
         defineArrayMember({ type: 'table' }),
       ],
     }),
@@ -29,14 +40,16 @@ export const section = defineType({
   preview: {
     select: {
       title: 'title',
+      subtitle: 'subtitle',
       content: 'content',
     },
-    prepare({ title, content }) {
+    prepare({ title, subtitle, content }) {
       const count = Array.isArray(content) ? content.length : 0
+      const items = count === 1 ? '1 élément' : `${count} éléments`
 
       return {
         title: title || 'Section sans titre',
-        subtitle: count === 1 ? '1 élément' : `${count} éléments`,
+        subtitle: subtitle ? `${subtitle} · ${items}` : items,
         media: BlockContentIcon,
       }
     },

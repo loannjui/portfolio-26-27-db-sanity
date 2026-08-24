@@ -2,7 +2,7 @@ import { page } from './page'
 import { article } from './article'
 import { section } from './content/section'
 import { textBlock } from './content/textBlock'
-import { imgBlock } from './content/imgBlock'
+import { media } from './content/media'
 import { table } from './content/table'
 
 export const schemaTypes = [
@@ -10,6 +10,6 @@ export const schemaTypes = [
   article,
   section,
   textBlock,
-  imgBlock,
+  media,
   table,
 ]
