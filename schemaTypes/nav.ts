@@ -11,9 +11,17 @@ export const nav = defineType({
   fields: [
     defineField({
       name: 'logo',
-      title: 'Logo',
+      title: 'Logo — mode clair',
       type: 'reference',
       to: [{ type: 'media' }],
+    }),
+
+    defineField({
+      name: 'logoDark',
+      title: 'Logo — mode sombre',
+      type: 'reference',
+      to: [{ type: 'media' }],
+      description: 'Facultatif — reprend le logo clair si vide',
     }),
 
     defineField({
