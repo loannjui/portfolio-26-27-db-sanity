@@ -27,7 +27,10 @@ export const page = defineType({
       name: 'sections',
       title: 'Sections',
       type: 'array',
-      of: [defineArrayMember({ type: 'section' })],
+      of: [
+        defineArrayMember({ type: 'section' }),
+        defineArrayMember({ type: 'projectsSection' }),
+      ],
     }),
   ],
 
