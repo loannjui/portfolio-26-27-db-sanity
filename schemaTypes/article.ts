@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons/DocumentText'
+import { ARTICLE_URL_PREFIX, PrefixedSlugInput } from '../components/PrefixedSlugInput'
 
 export const article = defineType({
   name: 'article',
@@ -19,8 +20,22 @@ export const article = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      description: `L'article sera publié sous ${ARTICLE_URL_PREFIX}<slug>`,
+      components: {
+        input: PrefixedSlugInput,
+      },
       options: {
         source: 'title',
+        maxLength: 96,
+        slugify: input =>
+          input
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 96),
       },
       validation: Rule => Rule.required(),
     }),
