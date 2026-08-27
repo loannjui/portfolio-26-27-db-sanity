@@ -3,20 +3,20 @@ import { TextIcon } from '@sanity/icons/Text'
 
 export const textBlock = defineType({
   name: 'textBlock',
-  title: 'Bloc de texte',
+  title: 'Text block',
   type: 'object',
   icon: TextIcon,
 
   fields: [
     defineField({
       name: 'title',
-      title: 'Titre',
+      title: 'Title',
       type: 'string',
     }),
 
     defineField({
       name: 'content',
-      title: 'Contenu',
+      title: 'Content',
       type: 'text',
     }),
   ],
@@ -28,8 +28,8 @@ export const textBlock = defineType({
     },
     prepare({ title, content }) {
       return {
-        title: title || content || 'Bloc de texte',
-        subtitle: 'Texte',
+        title: title || content || 'Text block',
+        subtitle: 'Text',
         media: TextIcon,
       }
     },

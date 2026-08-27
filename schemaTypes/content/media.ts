@@ -10,9 +10,9 @@ export const media = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Nom',
+      title: 'Name',
       type: 'string',
-      description: 'Sert à retrouver l’image dans la liste, pas affiché sur le site',
+      description: 'Used to find the image in the list, not shown on the site',
       validation: Rule => Rule.required(),
     }),
 
@@ -28,17 +28,17 @@ export const media = defineType({
 
     defineField({
       name: 'alt',
-      title: 'Texte alternatif',
+      title: 'Alt text',
       type: 'string',
-      description: 'Décrit l’image pour les lecteurs d’écran et si l’image ne charge pas',
+      description: 'Describes the image for screen readers and if the image fails to load',
       validation: Rule => Rule.required(),
     }),
 
     defineField({
       name: 'caption',
-      title: 'Légende',
+      title: 'Caption',
       type: 'string',
-      description: 'Facultatif — texte affiché sous l’image',
+      description: 'Optional — text shown below the image',
     }),
   ],
 

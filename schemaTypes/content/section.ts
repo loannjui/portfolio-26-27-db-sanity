@@ -10,20 +10,20 @@ export const section = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Titre',
+      title: 'Title',
       type: 'string',
     }),
 
     defineField({
       name: 'subtitle',
-      title: 'Sous-titre',
+      title: 'Subtitle',
       type: 'string',
-      description: 'Facultatif',
+      description: 'Optional',
     }),
 
     defineField({
       name: 'content',
-      title: 'Contenu',
+      title: 'Content',
       type: 'array',
       of: [
         defineArrayMember({ type: 'textBlock' }),
@@ -45,10 +45,10 @@ export const section = defineType({
     },
     prepare({ title, subtitle, content }) {
       const count = Array.isArray(content) ? content.length : 0
-      const items = count === 1 ? '1 élément' : `${count} éléments`
+      const items = count === 1 ? '1 item' : `${count} items`
 
       return {
-        title: title || 'Section sans titre',
+        title: title || 'Untitled section',
         subtitle: subtitle ? `${subtitle} · ${items}` : items,
         media: BlockContentIcon,
       }

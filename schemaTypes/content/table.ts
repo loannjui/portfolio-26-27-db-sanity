@@ -3,14 +3,14 @@ import { ThLargeIcon } from '@sanity/icons/ThLarge'
 
 export const table = defineType({
   name: 'table',
-  title: 'Tableau',
+  title: 'Table',
   type: 'object',
   icon: ThLargeIcon,
 
   fields: [
     defineField({
       name: 'columns',
-      title: 'Colonnes',
+      title: 'Columns',
       type: 'array',
       of: [
         defineArrayMember({
@@ -18,13 +18,13 @@ export const table = defineType({
           fields: [
             defineField({
               name: 'name',
-              title: 'Nom',
+              title: 'Name',
               type: 'string',
             }),
 
             defineField({
               name: 'key',
-              title: 'Clé',
+              title: 'Key',
               type: 'string',
             }),
           ],
@@ -37,7 +37,7 @@ export const table = defineType({
 
     defineField({
       name: 'rows',
-      title: 'Lignes',
+      title: 'Rows',
       type: 'array',
       of: [
         defineArrayMember({
@@ -45,7 +45,7 @@ export const table = defineType({
           fields: [
             defineField({
               name: 'cells',
-              title: 'Cellules',
+              title: 'Cells',
               type: 'array',
               of: [
                 defineArrayMember({
@@ -53,7 +53,7 @@ export const table = defineType({
                   fields: [
                     defineField({
                       name: 'value',
-                      title: 'Valeur',
+                      title: 'Value',
                       type: 'string',
                     }),
                   ],
@@ -72,7 +72,7 @@ export const table = defineType({
                 : []
 
               return {
-                title: values.join(' · ') || 'Ligne vide',
+                title: values.join(' · ') || 'Empty row',
               }
             },
           },
@@ -91,8 +91,8 @@ export const table = defineType({
       const rowCount = Array.isArray(rows) ? rows.length : 0
 
       return {
-        title: 'Tableau',
-        subtitle: `${columnCount} colonnes · ${rowCount} lignes`,
+        title: 'Table',
+        subtitle: `${columnCount} columns · ${rowCount} rows`,
         media: ThLargeIcon,
       }
     },

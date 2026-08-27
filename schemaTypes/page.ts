@@ -10,7 +10,7 @@ export const page = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Titre',
+      title: 'Title',
       type: 'string',
     }),
 
@@ -27,10 +27,7 @@ export const page = defineType({
       name: 'sections',
       title: 'Sections',
       type: 'array',
-      of: [
-        defineArrayMember({ type: 'section' }),
-        defineArrayMember({ type: 'projectsSection' }),
-      ],
+      of: [defineArrayMember({ type: 'section' })],
     }),
   ],
 

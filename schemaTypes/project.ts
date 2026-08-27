@@ -1,17 +1,17 @@
 import { defineArrayMember, defineField, defineType } from 'sanity'
 import { DocumentTextIcon } from '@sanity/icons/DocumentText'
-import { ARTICLE_URL_PREFIX, PrefixedSlugInput } from '../components/PrefixedSlugInput'
+import { PROJECT_URL_PREFIX, PrefixedSlugInput } from '../components/PrefixedSlugInput'
 
-export const article = defineType({
-  name: 'article',
-  title: 'Article',
+export const project = defineType({
+  name: 'project',
+  title: 'Project',
   type: 'document',
   icon: DocumentTextIcon,
 
   fields: [
     defineField({
       name: 'title',
-      title: 'Titre',
+      title: 'Title',
       type: 'string',
       validation: Rule => Rule.required(),
     }),
@@ -20,7 +20,7 @@ export const article = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: `L'article sera publié sous ${ARTICLE_URL_PREFIX}<slug>`,
+      description: `The project will be published under ${PROJECT_URL_PREFIX}<slug>`,
       components: {
         input: PrefixedSlugInput,
       },
@@ -42,19 +42,30 @@ export const article = defineType({
 
     defineField({
       name: 'excerpt',
-      title: 'Résumé',
+      title: 'Excerpt',
       type: 'text',
       rows: 3,
     }),
 
     defineField({
+      name: 'date',
+      title: 'Date',
+      type: 'date',
+      description: 'When the project was made — only the month and year are shown',
+      options: {
+        dateFormat: 'MMMM YYYY',
+      },
+      validation: Rule => Rule.required(),
+    }),
+
+    defineField({
       name: 'externalUrl',
-      title: 'URL externe',
+      title: 'External URL',
       type: 'url',
       validation: Rule =>
         Rule.uri({
           scheme: ['http', 'https'],
-        }).error('Doit être une URL commençant par http:// ou https://'),
+        }).error('Must be a URL starting with http:// or https://'),
     }),
 
     defineField({
@@ -76,8 +87,19 @@ export const article = defineType({
 
     defineField({
       name: 'coverImage',
-      title: 'Image de couverture',
+      title: 'Cover image — landscape',
       type: 'image',
+      description: 'Horizontal format',
+      options: {
+        hotspot: true,
+      },
+    }),
+
+    defineField({
+      name: 'coverImagePortrait',
+      title: 'Cover image — portrait',
+      type: 'image',
+      description: 'Vertical format',
       options: {
         hotspot: true,
       },
@@ -91,11 +113,32 @@ export const article = defineType({
     }),
   ],
 
+  orderings: [
+    {
+      name: 'dateDesc',
+      title: 'Date, newest first',
+      by: [{ field: 'date', direction: 'desc' }],
+    },
+    {
+      name: 'dateAsc',
+      title: 'Date, oldest first',
+      by: [{ field: 'date', direction: 'asc' }],
+    },
+  ],
+
   preview: {
     select: {
       title: 'title',
       subtitle: 'slug.current',
-      media: 'coverImage',
+      landscape: 'coverImage',
+      portrait: 'coverImagePortrait',
+    },
+    prepare({ title, subtitle, landscape, portrait }) {
+      return {
+        title,
+        subtitle,
+        media: landscape || portrait || DocumentTextIcon,
+      }
     },
   },
 })

@@ -11,28 +11,28 @@ export const nav = defineType({
   fields: [
     defineField({
       name: 'logo',
-      title: 'Logo — mode clair',
+      title: 'Logo — light mode',
       type: 'reference',
       to: [{ type: 'media' }],
     }),
 
     defineField({
       name: 'logoDark',
-      title: 'Logo — mode sombre',
+      title: 'Logo — dark mode',
       type: 'reference',
       to: [{ type: 'media' }],
-      description: 'Facultatif — reprend le logo clair si vide',
+      description: 'Optional — falls back to the light logo if empty',
     }),
 
     defineField({
       name: 'items',
-      title: 'Liens',
+      title: 'Links',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'object',
           name: 'navItem',
-          title: 'Lien',
+          title: 'Link',
           icon: LinkIcon,
 
           fields: [
@@ -46,9 +46,9 @@ export const nav = defineType({
 
             defineField({
               name: 'label',
-              title: 'Libellé',
+              title: 'Label',
               type: 'string',
-              description: 'Facultatif — reprend le titre de la page si vide',
+              description: 'Optional — falls back to the page title if empty',
             }),
           ],
 
@@ -60,7 +60,7 @@ export const nav = defineType({
             },
             prepare({ label, pageTitle, slug }) {
               return {
-                title: label || pageTitle || 'Lien sans page',
+                title: label || pageTitle || 'Link without a page',
                 subtitle: slug ? `/${slug}` : undefined,
                 media: LinkIcon,
               }
@@ -81,7 +81,7 @@ export const nav = defineType({
 
       return {
         title: 'Navigation',
-        subtitle: count === 1 ? '1 lien' : `${count} liens`,
+        subtitle: count === 1 ? '1 link' : `${count} links`,
         media: media || MenuIcon,
       }
     },
