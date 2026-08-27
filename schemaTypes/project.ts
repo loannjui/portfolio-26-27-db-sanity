@@ -87,19 +87,8 @@ export const project = defineType({
 
     defineField({
       name: 'coverImage',
-      title: 'Cover image — landscape',
+      title: 'Cover image',
       type: 'image',
-      description: 'Horizontal format',
-      options: {
-        hotspot: true,
-      },
-    }),
-
-    defineField({
-      name: 'coverImagePortrait',
-      title: 'Cover image — portrait',
-      type: 'image',
-      description: 'Vertical format',
       options: {
         hotspot: true,
       },
@@ -130,15 +119,7 @@ export const project = defineType({
     select: {
       title: 'title',
       subtitle: 'slug.current',
-      landscape: 'coverImage',
-      portrait: 'coverImagePortrait',
-    },
-    prepare({ title, subtitle, landscape, portrait }) {
-      return {
-        title,
-        subtitle,
-        media: landscape || portrait || DocumentTextIcon,
-      }
+      media: 'coverImage',
     },
   },
 })
