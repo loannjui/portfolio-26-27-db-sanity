@@ -5,12 +5,14 @@ import { section } from './content/section'
 import { textBlock } from './content/textBlock'
 import { media } from './content/media'
 import { table } from './content/table'
+import { projectsSection } from './content/projectsSection'
 
 export const schemaTypes = [
   nav,
   page,
   project,
   section,
+  projectsSection,
   textBlock,
   media,
   table,
