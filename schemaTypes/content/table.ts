@@ -53,12 +53,30 @@ export const table = defineType({
                   fields: [
                     defineField({
                       name: 'value',
-                      title: 'Value',
+                      title: 'Text',
                       type: 'string',
+                    }),
+
+                    defineField({
+                      name: 'image',
+                      title: 'Image',
+                      type: 'reference',
+                      to: [{ type: 'media' }],
+                      description: 'Optional — shown in the cell alongside the text',
                     }),
                   ],
                   preview: {
-                    select: { title: 'value' },
+                    select: {
+                      title: 'value',
+                      imageTitle: 'image.title',
+                      media: 'image.image',
+                    },
+                    prepare({ title, imageTitle, media }) {
+                      return {
+                        title: title || imageTitle || 'Empty cell',
+                        media,
+                      }
+                    },
                   },
                 }),
               ],
@@ -68,7 +86,9 @@ export const table = defineType({
             select: { cells: 'cells' },
             prepare({ cells }) {
               const values = Array.isArray(cells)
-                ? cells.map((cell) => cell?.value).filter(Boolean)
+                ? cells
+                    .map((cell) => cell?.value || (cell?.image ? 'Image' : null))
+                    .filter(Boolean)
                 : []
 
               return {
