@@ -1,6 +1,6 @@
-import { defineArrayMember, defineField, defineType } from 'sanity'
-import { MenuIcon } from '@sanity/icons/Menu'
-import { LinkIcon } from '@sanity/icons/Link'
+import {defineArrayMember, defineField, defineType} from 'sanity'
+import {MenuIcon} from '@sanity/icons/Menu'
+import {LinkIcon} from '@sanity/icons/Link'
 
 export const nav = defineType({
   name: 'nav',
@@ -13,14 +13,14 @@ export const nav = defineType({
       name: 'logo',
       title: 'Logo — light mode',
       type: 'reference',
-      to: [{ type: 'media' }],
+      to: [{type: 'media'}],
     }),
 
     defineField({
       name: 'logoDark',
       title: 'Logo — dark mode',
       type: 'reference',
-      to: [{ type: 'media' }],
+      to: [{type: 'media'}],
       description: 'Optional — falls back to the light logo if empty',
     }),
 
@@ -40,8 +40,8 @@ export const nav = defineType({
               name: 'page',
               title: 'Page',
               type: 'reference',
-              to: [{ type: 'page' }],
-              validation: Rule => Rule.required(),
+              to: [{type: 'page'}],
+              validation: (Rule) => Rule.required(),
             }),
 
             defineField({
@@ -49,6 +49,12 @@ export const nav = defineType({
               title: 'Label',
               type: 'string',
               description: 'Optional — falls back to the page title if empty',
+            }),
+            defineField({
+              name: 'anchor',
+              title: 'Anchor',
+              type: 'string',
+              description: 'Optional — scrolls to a section id on the page, e.g. "contact"',
             }),
           ],
 
@@ -58,7 +64,7 @@ export const nav = defineType({
               pageTitle: 'page.title',
               slug: 'page.slug.current',
             },
-            prepare({ label, pageTitle, slug }) {
+            prepare({label, pageTitle, slug}) {
               return {
                 title: label || pageTitle || 'Link without a page',
                 subtitle: slug ? `/${slug}` : undefined,
@@ -76,7 +82,7 @@ export const nav = defineType({
       items: 'items',
       media: 'logo.image',
     },
-    prepare({ items, media }) {
+    prepare({items, media}) {
       const count = Array.isArray(items) ? items.length : 0
 
       return {
