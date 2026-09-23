@@ -1,6 +1,6 @@
-import { defineArrayMember, defineField, defineType } from 'sanity'
-import { DocumentTextIcon } from '@sanity/icons/DocumentText'
-import { PROJECT_URL_PREFIX, PrefixedSlugInput } from '../components/PrefixedSlugInput'
+import {defineArrayMember, defineField, defineType} from 'sanity'
+import {DocumentTextIcon} from '@sanity/icons/DocumentText'
+import {PROJECT_URL_PREFIX, PrefixedSlugInput} from '../components/PrefixedSlugInput'
 
 export const project = defineType({
   name: 'project',
@@ -13,7 +13,7 @@ export const project = defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -27,7 +27,7 @@ export const project = defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        slugify: input =>
+        slugify: (input) =>
           input
             .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
@@ -37,7 +37,7 @@ export const project = defineType({
             .replace(/^-+|-+$/g, '')
             .slice(0, 96),
       },
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -45,6 +45,7 @@ export const project = defineType({
       title: 'Excerpt',
       type: 'text',
       rows: 3,
+      validation: (Rule) => Rule.required().max(200),
     }),
 
     defineField({
@@ -55,14 +56,14 @@ export const project = defineType({
       options: {
         dateFormat: 'MMMM YYYY',
       },
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
       name: 'externalUrl',
       title: 'External URL',
       type: 'url',
-      validation: Rule =>
+      validation: (Rule) =>
         Rule.uri({
           scheme: ['http', 'https'],
         }).error('Must be a URL starting with http:// or https://'),
@@ -72,17 +73,22 @@ export const project = defineType({
       name: 'skills',
       title: 'Skills',
       type: 'array',
-      of: [defineArrayMember({ type: 'string' })],
+      of: [defineArrayMember({type: 'string'})],
       options: {
         layout: 'tags',
       },
-      validation: Rule => Rule.unique(),
+      validation: (Rule) => Rule.unique(),
     }),
 
     defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
+      options: {
+        list: ['Website'],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -92,13 +98,15 @@ export const project = defineType({
       options: {
         hotspot: true,
       },
+      validation: (Rule) =>
+        Rule.custom((value) => (value?.asset ? true : 'A cover image is required')),
     }),
 
     defineField({
       name: 'sections',
       title: 'Sections',
       type: 'array',
-      of: [defineArrayMember({ type: 'section' })],
+      of: [defineArrayMember({type: 'section'})],
     }),
   ],
 
@@ -106,12 +114,12 @@ export const project = defineType({
     {
       name: 'dateDesc',
       title: 'Date, newest first',
-      by: [{ field: 'date', direction: 'desc' }],
+      by: [{field: 'date', direction: 'desc'}],
     },
     {
       name: 'dateAsc',
       title: 'Date, oldest first',
-      by: [{ field: 'date', direction: 'asc' }],
+      by: [{field: 'date', direction: 'asc'}],
     },
   ],
 
