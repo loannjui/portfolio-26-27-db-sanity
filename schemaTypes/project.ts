@@ -85,7 +85,7 @@ export const project = defineType({
       title: 'Category',
       type: 'string',
       options: {
-        list: ['Website'],
+        list: ['Website', 'Graphic design', 'Motion', 'UI/UX Design'],
         layout: 'radio',
       },
       validation: (Rule) => Rule.required(),

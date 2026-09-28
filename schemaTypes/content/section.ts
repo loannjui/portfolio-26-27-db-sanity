@@ -33,6 +33,7 @@ export const section = defineType({
           to: [{ type: 'media' }],
         }),
         defineArrayMember({ type: 'table' }),
+        defineArrayMember({ type: 'embed' }),
       ],
     }),
   ],
