@@ -52,11 +52,28 @@ export const project = defineType({
       name: 'date',
       title: 'Date',
       type: 'date',
-      description: 'When the project was made — only the month and year are shown',
+      description:
+        'When the project was made (or started, if it has an end date) — only the month and year are shown',
       options: {
         dateFormat: 'MMMM YYYY',
       },
       validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'endDate',
+      title: 'End date',
+      type: 'date',
+      description: 'Optional — for projects spanning several months or years',
+      options: {
+        dateFormat: 'MMMM YYYY',
+      },
+      validation: (Rule) =>
+        Rule.custom((endDate, context) => {
+          const startDate = (context.document as {date?: string} | undefined)?.date
+          if (!endDate || !startDate) return true
+          return endDate >= startDate ? true : 'The end date must be after the start date'
+        }),
     }),
 
     defineField({
