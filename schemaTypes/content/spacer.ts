@@ -8,24 +8,19 @@ export const spacer = defineType({
   icon: SquareIcon,
   description: 'Leaves an empty spot to shift the next items on desktop',
 
+  // Sanity requires at least one field on an object, so this one is never shown
   fields: [
     defineField({
-      name: 'hideOnMobile',
-      title: 'Hide on mobile',
+      name: 'placeholder',
       type: 'boolean',
-      description: 'When on, the empty space only exists on desktop',
-      initialValue: true,
+      hidden: true,
     }),
   ],
 
   preview: {
-    select: {
-      hideOnMobile: 'hideOnMobile',
-    },
-    prepare({ hideOnMobile }) {
+    prepare() {
       return {
         title: 'Empty space',
-        subtitle: hideOnMobile === false ? 'Desktop and mobile' : 'Desktop only',
         media: SquareIcon,
       }
     },
