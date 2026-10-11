@@ -1,6 +1,5 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import {DocumentTextIcon} from '@sanity/icons/DocumentText'
-import {LinkIcon} from '@sanity/icons/Link'
 import {PROJECT_URL_PREFIX, PrefixedSlugInput} from '../components/PrefixedSlugInput'
 
 export const project = defineType({
@@ -88,42 +87,12 @@ export const project = defineType({
     }),
 
     defineField({
-      name: 'links',
-      title: 'Links',
-      type: 'array',
-      description: 'Optional — shown as buttons on the project page',
-      of: [
-        defineArrayMember({
-          name: 'link',
-          title: 'Link',
-          type: 'object',
-          icon: LinkIcon,
-          fields: [
-            defineField({
-              name: 'label',
-              title: 'Label',
-              type: 'string',
-              description: 'Button text, e.g. "Visit the website" or "See on Behance"',
-              validation: (Rule) => Rule.required().max(60),
-            }),
-            defineField({
-              name: 'url',
-              title: 'URL',
-              type: 'url',
-              validation: (Rule) =>
-                Rule.required()
-                  .uri({scheme: ['http', 'https', 'mailto']})
-                  .error('Must be a URL starting with http://, https:// or mailto:'),
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'label',
-              subtitle: 'url',
-            },
-          },
-        }),
-      ],
+      name: 'externalUrlLabel',
+      title: 'External URL label',
+      type: 'string',
+      description: 'Optional — text of the button, replaces the default text',
+      hidden: ({document}) => !document?.externalUrl,
+      validation: (Rule) => Rule.max(60),
     }),
 
     defineField({

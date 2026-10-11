@@ -34,6 +34,7 @@ export const section = defineType({
         }),
         defineArrayMember({ type: 'table' }),
         defineArrayMember({ type: 'embed' }),
+        defineArrayMember({ type: 'button' }),
       ],
     }),
   ],

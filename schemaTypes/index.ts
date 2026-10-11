@@ -6,6 +6,7 @@ import { textBlock } from './content/textBlock'
 import { media } from './content/media'
 import { table } from './content/table'
 import { embed } from './content/embed'
+import { button } from './content/button'
 import { projectsSection } from './content/projectsSection'
 
 export const schemaTypes = [
@@ -18,4 +19,5 @@ export const schemaTypes = [
   media,
   table,
   embed,
+  button,
 ]
